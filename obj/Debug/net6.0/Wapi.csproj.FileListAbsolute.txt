@@ -1,0 +1,5 @@
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net6.0\Wapi.csproj.AssemblyReference.cache
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net6.0\Wapi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net6.0\Wapi.AssemblyInfoInputs.cache
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net6.0\Wapi.AssemblyInfo.cs
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net6.0\Wapi.csproj.CoreCompileInputs.cache

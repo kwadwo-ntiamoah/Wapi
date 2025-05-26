@@ -12,15 +12,9 @@ using Wapi.src.IncomingMessageModels;
 
 namespace Wapi.src.Utilities
 {
-    public class EncryptionHelper
+    public class EncryptionHelper(ILogger<EncryptionHelper> logger)
     {
-        private readonly ILogger<EncryptionHelper> _logger;
-
-        public EncryptionHelper(ILogger<EncryptionHelper> logger)
-        {
-            _logger = logger;
-        }
-
+        private readonly ILogger<EncryptionHelper> _logger = logger;
         const int TAG_LENGTH = 16;
 
         public (DecryptedFlowMessage decryptedBody, byte[] aesKeyBytes, byte[] initialVectorBytes) DecryptRequest(EncryptedFlowMessage payload, string privatePemPath, string passphrase)

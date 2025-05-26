@@ -11,9 +11,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Wapi.src
 {
-    internal class Wapi(WhatsappClient client, IOptions<WhatsappConfig> config) : IWapi
+    public class WApi(WhatsappClient client, IOptions<WhatsappConfig> config) : IWApi
     {
-        private readonly MessageHandlerFactory _factory = new();
         private readonly WhatsappClient _client = client;
         private readonly WhatsappConfig _whatsappConfig = config.Value;
 
@@ -37,10 +36,11 @@ namespace Wapi.src
             }
         }
 
-        public ErrorOr<BaseMessage> DecodeInboundMessage(string payload)
+        public ErrorOr<(string?, BaseMessage)> DecodeInboundMessage(string payload)
         {
             try
             {
+                // dynamically converts whatsapp message to a type
                 var settings = new JsonSerializerSettings
                 {
                     Converters = [new BaseMessageConverter()],
@@ -54,16 +54,19 @@ namespace Wapi.src
                 var entry = inboundMessage.Entry.First();
                 var change = entry.Changes.FirstOrDefault();
 
+                // message statuses like delivered, read, not delivered etc
                 if (change?.Value.Statuses.Count > 0)
                 {
                     
                 }
 
+                // contains actual content of message
                 if (change?.Value.Messages != null)
                 {
-                    var message = change.Value.Messages.FirstOrDefault();
+                    var displayName = change?.Value.Contacts.FirstOrDefault()?.Profile.Name;
+                    var message = change?.Value.Messages.FirstOrDefault();
 
-                    return message!;
+                    return (displayName, message!);
                 }
 
                 return new Error[] { Error.Validation(description: "Invalid message received") };
@@ -246,16 +249,6 @@ namespace Wapi.src
 
             var response = await _client.SendAsync(payload);
             return response.IsError ? response : response.Value;
-        }
-
-        private object? ProcessMessage(BaseMessage message)
-        {
-            return message switch
-            {
-                TextMessage textMessage => _factory.GetHandler<TextMessage, string>()?.HandleMessage(textMessage),
-                ImageMessage imageMessage => _factory.GetHandler<ImageMessage, Media>()?.HandleMessage(imageMessage),
-                _ => null
-            };
         }
     }
 }

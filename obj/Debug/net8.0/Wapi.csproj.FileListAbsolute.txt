@@ -1,0 +1,24 @@
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\bin\Debug\net8.0\Wapi.deps.json
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\bin\Debug\net8.0\Wapi.dll
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\bin\Debug\net8.0\Wapi.pdb
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.csproj.AssemblyReference.cache
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.AssemblyInfoInputs.cache
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.AssemblyInfo.cs
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.csproj.CoreCompileInputs.cache
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.dll
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\refint\Wapi.dll
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\Wapi.pdb
+C:\Users\eknthompson\Downloads\playground-master (1)\playground-master\Wapi\obj\Debug\net8.0\ref\Wapi.dll
+D:\repos\WhatsappSuite\Wapi\bin\Debug\net8.0\Wapi.deps.json
+D:\repos\WhatsappSuite\Wapi\bin\Debug\net8.0\Wapi.dll
+D:\repos\WhatsappSuite\Wapi\bin\Debug\net8.0\Wapi.pdb
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.csproj.AssemblyReference.cache
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.AssemblyInfoInputs.cache
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.AssemblyInfo.cs
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.csproj.CoreCompileInputs.cache
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.dll
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\refint\Wapi.dll
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\Wapi.pdb
+D:\repos\WhatsappSuite\Wapi\obj\Debug\net8.0\ref\Wapi.dll

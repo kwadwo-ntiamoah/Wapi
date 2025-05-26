@@ -126,6 +126,6 @@ namespace Wapi.src.OutgoingMessageModels
         public required string Screen { get; set; }
 
         [JsonProperty("data")]
-        public Dictionary<string, object>? Data { get; set; }
+        public Dictionary<string, object>? Data { get; set; } = new();
     }
 }

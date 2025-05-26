@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace Wapi.src
 {
-    public interface IWapi
+    public interface IWApi
     {
         public ErrorOr<string> ValidateInboundMessage(IQueryCollection queries);
 
-        public ErrorOr<BaseMessage> DecodeInboundMessage(string payload);
+        public ErrorOr<(string?, BaseMessage)> DecodeInboundMessage(string payload);
 
         /// <summary>
         /// Send an Audio Message

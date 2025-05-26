@@ -11,6 +11,6 @@ namespace Wapi.src.OutgoingMessageModels
         public string RecipientType { get; set; } = "individual";
 
         [JsonProperty("to")]
-        public required string To { get; set; } 
+        public string To { get; set; } 
     }
 }

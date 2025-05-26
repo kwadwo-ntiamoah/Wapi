@@ -22,7 +22,7 @@ namespace Wapi.src.Extensions
                 client.Timeout = TimeSpan.FromSeconds(180);
             });
 
-            services.AddSingleton<IWapi, Wapi>();
+            services.AddSingleton<IWApi, WApi>();
 
             // inject EncryptionHelper
             services.AddScoped<EncryptionHelper>();
