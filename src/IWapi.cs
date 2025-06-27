@@ -18,6 +18,12 @@ namespace Wapi.src
         public ErrorOr<(string?, BaseMessage)> DecodeInboundMessage(string payload);
 
         /// <summary>
+        /// Send a loading indicator
+        /// </summary>
+        /// <returns></returns>
+        public Task<ErrorOr<bool>> ShowLoadingIndicator(string messageId);
+
+        /// <summary>
         /// Send an Audio Message
         /// </summary>
         /// <param name="message"></param>

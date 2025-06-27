@@ -250,5 +250,13 @@ namespace Wapi.src
             var response = await _client.SendAsync(payload);
             return response.IsError ? response : response.Value;
         }
+
+        public async Task<ErrorOr<bool>> ShowLoadingIndicator(string messageId)
+        {
+            var payload = new SendLoadingIndicator { MessageId = messageId };
+            var response = await _client.SendAsync(payload);
+
+            return !response.IsError;
+        }
     }
 }

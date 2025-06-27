@@ -15,6 +15,29 @@ namespace Wapi.src.Http
 {
     public class WhatsappClient(ILogger<WhatsappClient> logger, HttpClient httpClient, IOptions<WhatsappConfig> options)
     {
+        public async Task<ErrorOr<OutBoundMessageResponse>> SendAsync(SendLoadingIndicator message)
+        {
+            try
+            {
+                var jsonObj = JsonConvert.SerializeObject(message);
+
+                var payload = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+                var temp = await payload.ReadAsStringAsync();
+                var response = await httpClient.PostAsync("messages", payload);
+
+                var stringResponse = await response.Content.ReadAsStringAsync();
+                logger.LogInformation("Response from whatsapp Post::{stringResponse}", stringResponse);
+
+                response.EnsureSuccessStatusCode();
+
+                return new();
+            }
+            catch (Exception ex)
+            {
+                return new Error[] { Error.Failure(description: ex.Message) };
+            }
+        }
+
         public async Task<ErrorOr<OutBoundMessageResponse>> SendAsync(SendReadReceipt message)
         {
             try
