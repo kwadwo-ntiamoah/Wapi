@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40f2c4a996f5f62bdd64f4a4fee93cd4288b92bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8c57f643efd85556a390ace1fe76fc854851d3a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
