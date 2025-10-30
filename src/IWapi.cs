@@ -130,6 +130,11 @@ namespace Wapi.src
         /// <returns></returns>
         public Task<ErrorOr<OutBoundMessageResponse>> SendMessage(string recipient, SendVideo message);
         
-        
+        /// <summary>
+        /// Get Media Url and Base64 string from media ID
+        /// </summary>
+        /// <param name="mediaId"></param>
+        /// <returns>(mediaUrl, base64String)</returns>
+        public Task<ErrorOr<(string, string)>> GetMedia(string mediaId);
     }
 }

@@ -258,5 +258,23 @@ namespace Wapi.src
 
             return !response.IsError;
         }
+
+        public async Task<ErrorOr<(string, string)>> GetMedia(string mediaId)
+        {
+            try
+            {
+                var mediaUrl = await _client.GetMediaUrlAsync(mediaId);
+                if (mediaUrl.IsError) return new Error[] { Error.Failure(description: "Failed to get media URL") };
+
+                var mediaBase64 = await _client.GetMediaBase64String(mediaUrl.Value);
+                if (mediaBase64.IsError) return new Error[] { Error.Failure(description: "Failed to get media Base64 string") };
+
+                return (mediaUrl.Value, mediaBase64.Value);
+
+            } catch (Exception ex)
+            {
+                return new Error[] { Error.Failure(description: ex.Message) };
+            }
+        }
     }
 }

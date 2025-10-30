@@ -4,6 +4,23 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    
+    <!-- Package Information -->
+    <PackageId>DevJojo.WApi</PackageId>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Authors>DevJojo</Authors>
+    <Company>DevJojo</Company>
+    <Description>A comprehensive .NET library for WhatsApp Business API integration, providing easy-to-use methods for sending and receiving messages, handling media, and managing WhatsApp interactions.</Description>
+    <PackageTags>whatsapp;api;business;messaging;chat;meta;facebook</PackageTags>
+    <RepositoryUrl>https://github.com/kwadwo-ntiamoah/Wapi</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/kwadwo-ntiamoah/Wapi</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>v1.0.1: Fixed media retrieval return type issue in GetMedia method and improved error handling.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
