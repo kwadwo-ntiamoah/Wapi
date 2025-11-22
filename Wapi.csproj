@@ -7,9 +7,9 @@
     
     <!-- Package Information -->
     <PackageId>DevJojo.WApi</PackageId>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
     <Authors>DevJojo</Authors>
     <Company>DevJojo</Company>
     <Description>A comprehensive .NET library for WhatsApp Business API integration, providing easy-to-use methods for sending and receiving messages, handling media, and managing WhatsApp interactions.</Description>
@@ -20,7 +20,7 @@
     <PackageProjectUrl>https://github.com/kwadwo-ntiamoah/Wapi</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>v1.0.1: Fixed media retrieval return type issue in GetMedia method and improved error handling.</PackageReleaseNotes>
+    <PackageReleaseNotes>v1.0.2: Added graceful handling for inbound message status updates (delivered/read/etc) via MessageStatus without throwing errors; improved webhook decoding robustness.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

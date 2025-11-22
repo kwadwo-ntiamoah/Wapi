@@ -76,7 +76,7 @@ namespace Wapi.src.IncomingMessageModels
         [JsonProperty("id")]
         public string Id { get; set; } = string.Empty;
 
-        [JsonProperty("status_type")]
+        [JsonProperty("status")]
         public string StatusType { get; set; } = string.Empty;
 
         [JsonProperty("timestamp")]

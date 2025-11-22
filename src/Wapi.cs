@@ -57,7 +57,13 @@ namespace Wapi.src
                 // message statuses like delivered, read, not delivered etc
                 if (change?.Value.Statuses.Count > 0)
                 {
-                    
+                    var status = change?.Value.Statuses.FirstOrDefault();
+                    var messageStatus = new MessageStatus
+                    {
+                        Status = status?.StatusType ?? "delivered"
+                    };
+
+                    return (null, messageStatus);
                 }
 
                 // contains actual content of message
