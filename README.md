@@ -19,7 +19,8 @@ DevJojo.WApi provides a clean, easy-to-use interface for interacting with WhatsA
 • 🔧 **Extensible**: Easy to extend and customize for specific needs  
 • 📋 **Comprehensive**: Support for all WhatsApp Business API features  
 • 🖼️ **Media Retrieval**: Retrieve media URLs and base64 strings from media IDs  
-• ✅ **Graceful Status Handling (NEW)**: Delivered/read/etc status webhooks are safely ignored without errors
+• ✅ **Graceful Status Handling**: Delivered/read/etc status webhooks are safely ignored without errors  
+• 🆔 **Business-Scoped User IDs (NEW)**: Handle contacts with no visible phone number and prompt them to share it via `RequestContactInfo`
 
 ## Installation
 
@@ -125,15 +126,34 @@ public class WebhookController : ControllerBase
         if (result.IsError)
             return BadRequest();
 
-        var (displayName, message) = result.Value;
+        BaseMessage message;
 
-        // Status notifications are represented by MessageStatus and can be ignored
-        if (message is MessageStatus status)
+        switch (result.Value)
         {
-            // Optionally log: status.Status
-            return Ok();
+            // Delivery/read/etc status notifications - nothing to do
+            case InboundStatus:
+                return Ok();
+
+            // Contact WhatsApp hasn't shared a phone number for yet (business-scoped user ID only).
+            // Stash the message and ask them to share their number.
+            case InboundColdContact cold:
+                await _wapi.RequestContactInfo(cold.Bsuid, "Please share your number so we can continue.");
+                return Ok();
+
+            // Contact tapped "share contact number" - resume any stashed message using the new WaId
+            case InboundContactShared shared:
+                // e.g. lookup stashed message by shared.Bsuid, then continue with shared.WaId
+                return Ok();
+
+            case InboundMessage inbound:
+                // inbound.WaId, inbound.DisplayName
+                message = inbound.Message;
+                break;
+
+            default:
+                return Ok();
         }
-        
+
         switch (message.Type.ToLower())
         {
             case "text":
@@ -343,14 +363,20 @@ else
 
 ## Changelog
 
-### v1.0.2 (Latest)
+### v2.0.0 (Latest)
+• **BREAKING**: `DecodeInboundMessage` now returns `ErrorOr<InboundResult>` instead of a tuple. Match on `InboundMessage`, `InboundColdContact`, `InboundContactShared` or `InboundStatus` (see *Handling Webhooks*)  
+• **NEW**: Support for business-scoped user IDs (BSUID) - contacts WhatsApp hasn't shared a phone number for  
+• **NEW**: `IWApi.RequestContactInfo(bsuid, bodyText)` sends a `request_contact_info` interactive message  
+• **NEW**: `Contact.UserId`, `Profile.Username`, `BaseMessage.FromUserId`, and inbound `contacts` messages (`ContactsMessage`)  
+
+### v1.0.2
 • **NEW**: Graceful handling of message status updates via `MessageStatus` type (delivered/read/etc)  
 • **IMPROVEMENT**: Webhook decode no longer errors on status-only payloads  
 
 ### v1.0.1
 • Added `GetMedia` method to retrieve media URL and base64 string from media ID  
 • Fixed return type issue in media retrieval methods  
-• Enhanced error handling in media operações  
+• Enhanced error handling in media operations  
 
 ### v1.0.0
 • Initial release with core messaging, webhook support, media handling, interactive & flow messages, encryption utilities  

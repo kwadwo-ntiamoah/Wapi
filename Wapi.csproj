@@ -7,9 +7,9 @@
     
     <!-- Package Information -->
     <PackageId>DevJojo.WApi</PackageId>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Authors>DevJojo</Authors>
     <Company>DevJojo</Company>
     <Description>A comprehensive .NET library for WhatsApp Business API integration, providing easy-to-use methods for sending and receiving messages, handling media, and managing WhatsApp interactions.</Description>
@@ -20,13 +20,22 @@
     <PackageProjectUrl>https://github.com/kwadwo-ntiamoah/Wapi</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>v1.0.2: Added graceful handling for inbound message status updates (delivered/read/etc) via MessageStatus without throwing errors; improved webhook decoding robustness.</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReleaseNotes>v2.0.0: BREAKING - DecodeInboundMessage now returns ErrorOr&lt;InboundResult&gt; instead of a (waId, displayName, BaseMessage) tuple, to support business-scoped user IDs (contacts with no visible phone number). Added Contact.UserId, Profile.Username, BaseMessage.FromUserId, and IWApi.RequestContactInfo for prompting cold contacts to share their number. v1.0.2: Added graceful handling for inbound message status updates (delivered/read/etc) via MessageStatus without throwing errors; improved webhook decoding robustness.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="tests\**" />
     <EmbeddedResource Remove="tests\**" />
     <None Remove="tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

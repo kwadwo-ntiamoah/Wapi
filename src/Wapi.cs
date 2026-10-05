@@ -36,7 +36,7 @@ namespace Wapi.src
             }
         }
 
-        public ErrorOr<(string?, BaseMessage)> DecodeInboundMessage(string payload)
+        public ErrorOr<InboundResult> DecodeInboundMessage(string payload)
         {
             try
             {
@@ -63,16 +63,39 @@ namespace Wapi.src
                         Status = status?.StatusType ?? "delivered"
                     };
 
-                    return (null, messageStatus);
+                    return new InboundStatus(messageStatus);
                 }
 
                 // contains actual content of message
                 if (change?.Value.Messages != null)
                 {
-                    var displayName = change?.Value.Contacts.FirstOrDefault()?.Profile.Name;
-                    var message = change?.Value.Messages.FirstOrDefault();
+                    var message = change.Value.Messages.FirstOrDefault();
+                    var contact = change.Value.Contacts.FirstOrDefault();
 
-                    return (displayName, message!);
+                    if (message == null) return new Error[] { Error.Validation(description: "Invalid message received") };
+
+                    // Reply to our request_contact_info prompt - confirmed shape, see ContactsMessage.
+                    if (message is ContactsMessage contactsMessage)
+                    {
+                        var sharedWaId = contactsMessage.Contacts
+                            .FirstOrDefault(c => c.Origin == "contact_request")?.Phones.FirstOrDefault()?.WaId;
+
+                        if (!string.IsNullOrEmpty(message.FromUserId) && !string.IsNullOrEmpty(sharedWaId))
+                        {
+                            return new InboundContactShared(message.FromUserId, sharedWaId);
+                        }
+                    }
+
+                    // Cold contact: WhatsApp hasn't given us a phone number for them yet
+                    // (business-scoped ID only - no wa_id/from on this payload).
+                    if (string.IsNullOrEmpty(message.From) && !string.IsNullOrEmpty(message.FromUserId))
+                    {
+                        return new InboundColdContact(message.FromUserId, contact?.Profile.Username, message);
+                    }
+
+                    var waId = contact?.WaId ?? message.From;
+                    var displayName = contact?.Profile.Name;
+                    return new InboundMessage(waId, displayName, message);
                 }
 
                 return new Error[] { Error.Validation(description: "Invalid message received") };
@@ -263,6 +286,21 @@ namespace Wapi.src
             var response = await _client.SendAsync(payload);
 
             return !response.IsError;
+        }
+
+        public async Task<ErrorOr<OutBoundMessageResponse>> RequestContactInfo(string bsuid, string bodyText)
+        {
+            var payload = new SendRequestContactInfoMessage
+            {
+                Recipient = bsuid,
+                Interactive = new SendRequestContactInfoInteractive
+                {
+                    Body = new SendRequestContactInfoBody { Text = bodyText }
+                }
+            };
+
+            var response = await _client.SendAsync(payload);
+            return response.IsError ? response : response.Value;
         }
 
         public async Task<ErrorOr<(string, string)>> GetMedia(string mediaId)

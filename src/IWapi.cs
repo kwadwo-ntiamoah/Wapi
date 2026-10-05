@@ -15,7 +15,7 @@ namespace Wapi.src
     {
         public ErrorOr<string> ValidateInboundMessage(IQueryCollection queries);
 
-        public ErrorOr<(string?, BaseMessage)> DecodeInboundMessage(string payload);
+        public ErrorOr<InboundResult> DecodeInboundMessage(string payload);
 
         /// <summary>
         /// Send a loading indicator
@@ -129,12 +129,20 @@ namespace Wapi.src
         /// <param name="message"></param>
         /// <returns></returns>
         public Task<ErrorOr<OutBoundMessageResponse>> SendMessage(string recipient, SendVideo message);
-        
+
         /// <summary>
         /// Get Media Url and Base64 string from media ID
         /// </summary>
         /// <param name="mediaId"></param>
         /// <returns>(mediaUrl, base64String)</returns>
         public Task<ErrorOr<(string, string)>> GetMedia(string mediaId);
+
+        /// <summary>
+        /// Ask a contact WhatsApp hasn't given us a phone number for yet (business-scoped
+        /// ID only) to share their number, via the request_contact_info interactive message.
+        /// </summary>
+        /// <param name="bsuid">The contact's business-scoped user ID (from from_user_id)</param>
+        /// <param name="bodyText">Prompt text shown above the share button</param>
+        public Task<ErrorOr<OutBoundMessageResponse>> RequestContactInfo(string bsuid, string bodyText);
     }
 }

@@ -61,6 +61,28 @@ namespace Wapi.src.Http
             }
         }
 
+        public async Task<ErrorOr<OutBoundMessageResponse>> SendAsync(SendRequestContactInfoMessage message)
+        {
+            try
+            {
+                var jsonObj = JsonConvert.SerializeObject(message);
+
+                var payload = new StringContent(jsonObj, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("messages", payload);
+
+                var stringResponse = await response.Content.ReadAsStringAsync();
+                logger.LogInformation("Response from whatsapp Post::{stringResponse}", stringResponse);
+
+                response.EnsureSuccessStatusCode();
+
+                return JsonConvert.DeserializeObject<OutBoundMessageResponse>(stringResponse)!;
+            }
+            catch (Exception ex)
+            {
+                return new Error[] { Error.Failure(description: ex.Message) };
+            }
+        }
+
         public async Task<ErrorOr<OutBoundMessageResponse>> SendAsync(SendMessageBase message)
         {
             try

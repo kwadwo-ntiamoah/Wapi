@@ -13,6 +13,11 @@ namespace Wapi.src.IncomingMessageModels
         [JsonProperty("from")]
         public string From { get; set; } = string.Empty;
 
+        // Business-scoped user ID. Set whenever the sender has a username; "from" is
+        // omitted by WhatsApp for cold contacts where no phone number is visible yet.
+        [JsonProperty("from_user_id")]
+        public string FromUserId { get; set; } = string.Empty;
+
         [JsonProperty("id")]
         public string Id { get; set; } = string.Empty;
 
@@ -36,7 +41,7 @@ namespace Wapi.src.IncomingMessageModels
 
     public class BaseMessageConverter : JsonConverter
     {
-        private readonly string[] allowedTypes = ["text", "image", "location", "document", "audio", "interactive", "sticker", "reaction"];
+        private readonly string[] allowedTypes = ["text", "image", "location", "document", "audio", "interactive", "sticker", "reaction", "contacts"];
         private readonly string[] allowedInteractiveTypes = ["nfm_reply", "list_reply", "button_reply"];
         public override bool CanConvert(Type objectType)
         {
@@ -69,6 +74,7 @@ namespace Wapi.src.IncomingMessageModels
                     "interactive" => GetInteractiveMessageType(jObject),
                     "sticker" => JsonConvert.DeserializeObject<StickerMessage>(jObject.ToString()),
                     "reaction" => JsonConvert.DeserializeObject<ReactionMessage>(jObject.ToString()),
+                    "contacts" => JsonConvert.DeserializeObject<ContactsMessage>(jObject.ToString()),
                     _ => throw new JsonSerializationException($"Unexpected type {typeValue}")
                 };
 

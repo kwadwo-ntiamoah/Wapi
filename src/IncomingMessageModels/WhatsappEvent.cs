@@ -63,12 +63,20 @@ namespace Wapi.src.IncomingMessageModels
 
         [JsonProperty("wa_id")]
         public string WaId { get; set; } = string.Empty;
+
+        // Business-scoped user ID. Present whenever the contact has a username set,
+        // regardless of whether wa_id is also present (recent contacts get both).
+        [JsonProperty("user_id")]
+        public string UserId { get; set; } = string.Empty;
     }
 
     public class Profile
     {
         [JsonProperty("name")]
         public string Name { get; set; } = string.Empty;
+
+        [JsonProperty("username")]
+        public string Username { get; set; } = string.Empty;
     }
 
     public class Status
